@@ -4,17 +4,27 @@ Tools for finding the relationship of an element to a scrollable viewport.
 
 ---
 
+## Install
+
+```sh
+npm i @malven/scroll-position
+```
+
 ## Dominant Element
 
 Returns the element in a collection that is currently occupying the most visible spaces in the viewport.
 
 ```js
+import { dominantElement } from '@malven/scroll-position';
+const els = document.querySelectorAll('.foo');
 const dominantEl = dominantElement(els);
 ```
 
 Use the `minVisible` option to specify a minimum number of pixels that must be visible for an element for it to be considered:
 
 ```js
+import { dominantElement } from '@malven/scroll-position';
+const els = document.querySelectorAll('.foo');
 const dominantEl = dominantElement(els, {
   minVisible: 100
 });
@@ -25,12 +35,16 @@ const dominantEl = dominantElement(els, {
 Returns the element in a collection whose center is currently the closest to the center of the viewport.
 
 ```js
+import { closestToCenter } from '@malven/scroll-position';
+const els = document.querySelectorAll('.foo');
 const closestEl = closestToCenter(els);
 ```
 
 Use the `minVisible` option to specify a minimum number of pixels that must be visible for an element for it to be considered:
 
 ```js
+import { closestToCenter } from '@malven/scroll-position';
+const els = document.querySelectorAll('.foo');
 const closestEl = closestToCenter(els, {
   minVisible: 100
 });
@@ -39,6 +53,8 @@ const closestEl = closestToCenter(els, {
 Use the `maxDistance` option to specify a maximum distance an element can be from the center for it to be considered (defaults to `2000`):
 
 ```js
+import { closestToCenter } from '@malven/scroll-position';
+const els = document.querySelectorAll('.foo');
 const closestEl = closestToCenter(els, {
   maxDistance: 1000
 });
