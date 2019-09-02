@@ -1,0 +1,42 @@
+{
+  "name": "@malven/scroll-position",
+  "version": "1.0.0",
+  "description": "Tools for finding the relationship of an element to a scrollable viewport.",
+  "main": "dist/scroll-position.umd.js",
+  "module": "dist/scroll-position.es.js",
+  "scripts": {
+    "build": "rollup --config",
+    "test": "jest",
+    "dev": "jest --watchAll & rollup --config --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmalven/scroll-position.git"
+  },
+  "author": "Chris Malven",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cmalven/scroll-position/issues"
+  },
+  "homepage": "https://github.com/cmalven/scroll-position#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
+    "@malven/eslint-config": "0.0.1",
+    "babel-eslint": "^10.0.3",
+    "core-js": "^3.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "jest": "^24.9.0",
+    "rollup": "^1.20.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-watch": "^4.3.1"
+  },
+  "eslintConfig": {
+    "extends": "@malven"
+  },
+  "dependencies": {
+    "eslint": "^6.3.0"
+  }
+}
