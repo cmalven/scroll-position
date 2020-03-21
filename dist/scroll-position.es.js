@@ -1,9 +1,8 @@
-const findOverlap = (scrollTop, winHeight, elTop, elHeight) => {
-  const y11 = elTop;
+const findOverlap = (elOffsetY, elHeight, winHeight) => {
+  const y11 = elOffsetY;
   const y12 = y11 + elHeight;
-  const y21 = scrollTop;
-  const y22 = scrollTop + winHeight;
-  const yOverlap = Math.max(0, Math.min(y12, y22) - Math.max(y11, y21));
+  const y22 = winHeight;
+  const yOverlap = Math.max(0, Math.min(y12, y22) - Math.max(y11, 0));
 
   return yOverlap;
 };
@@ -24,10 +23,9 @@ const dominantElement = (els, options = {}) => {
   els.forEach(el => {
     // Get the overlap for the element
     const overlap = findOverlap(
-      window.pageYOffset,
-      window.innerHeight,
-      el.offsetTop,
-      el.offsetHeight
+      el.getBoundingClientRect().top,
+      el.offsetHeight,
+      window.innerHeight
     );
 
     // If the overlap is the largest so far, promote it
@@ -41,20 +39,20 @@ const dominantElement = (els, options = {}) => {
   return maxOverlap > settings.minVisible ? maxEl : null;
 };
 
-const findDistanceToCenter = (scrollTop, winHeight, elTop, elHeight) => {
-  const viewportCenter = scrollTop + (winHeight / 2);
-  const elCenter = elTop + (elHeight / 2);
+const findDistanceToCenter = (elOffsetY, elHeight, winHeight) => {
+  const viewportCenter = winHeight / 2;
+  const elCenter = elOffsetY + (elHeight / 2);
   return Math.abs(viewportCenter - elCenter);
 };
 
-const closestToCenter = (els) => {
+const closestToCenter = (els, options = {}) => {
   let closestDistance = null;
   let closestEl = null;
 
   // Set defaults
   let settings = {
     minVisible: 0,
-    maxDistance: 2000
+    maxDistance: 10000
   };
 
   // Override defaults with options
@@ -62,10 +60,9 @@ const closestToCenter = (els) => {
 
   els.forEach(el => {
     const distance = findDistanceToCenter(
-      window.pageYOffset,
-      window.innerHeight,
-      el.offsetTop,
-      el.offsetHeight
+      el.getBoundingClientRect().top,
+      el.offsetHeight,
+      window.innerHeight
     );
     if (!closestDistance) closestDistance = distance;
     if (distance <= closestDistance && distance <= settings.maxDistance) {
@@ -74,14 +71,19 @@ const closestToCenter = (els) => {
     }
   });
 
+  // Throw an error if the cloests all cannot be found
+  if (!closestEl) {
+    console.warn('No closest element was found that matches your parameters.');
+    return null;
+  }
+
   // Return the closest element if it meets the minimum overlap
-  const overlap = findWindowOverlap(
-    window.pageYOffset,
-    window.innerHeight,
-    closestEl.offsetTop,
-    closestEl.offsetHeight
+  const overlap = findOverlap(
+    closestEl.getBoundingClientRect().top,
+    closestEl.offsetHeight,
+    window.innerHeight
   );
-  return closestEl && overlap > settings.minVisible ? closestEl : null;
+  return overlap > settings.minVisible ? closestEl : null;
 };
 
 export { closestToCenter, dominantElement, findDistanceToCenter, findOverlap };
