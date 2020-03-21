@@ -47,7 +47,7 @@ const findDistanceToCenter = (scrollTop, winHeight, elTop, elHeight) => {
   return Math.abs(viewportCenter - elCenter);
 };
 
-const closestToCenter = (els) => {
+const closestToCenter = (els, options = {}) => {
   let closestDistance = null;
   let closestEl = null;
 
@@ -75,7 +75,7 @@ const closestToCenter = (els) => {
   });
 
   // Return the closest element if it meets the minimum overlap
-  const overlap = findWindowOverlap(
+  const overlap = findOverlap(
     window.pageYOffset,
     window.innerHeight,
     closestEl.offsetTop,
