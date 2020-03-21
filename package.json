@@ -1,6 +1,6 @@
 {
   "name": "@malven/scroll-position",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tools for finding the relationship of an element to a scrollable viewport.",
   "main": "dist/scroll-position.umd.js",
   "module": "dist/scroll-position.es.js",
