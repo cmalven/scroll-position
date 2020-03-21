@@ -71,9 +71,8 @@ const closestToCenter = (els, options = {}) => {
     }
   });
 
-  // Throw an error if the cloests all cannot be found
+  // Return null if an element that meets criteria cannot be found
   if (!closestEl) {
-    console.warn('No closest element was found that matches your parameters.');
     return null;
   }
 
